@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário da Turma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-700">Calendário da Turma</h1>
+            <p class="text-gray-600 mt-2">Fique por dentro de todas as provas, trabalhos e eventos importantes!</p>
+        </header>
+
+        <main id="calendario-container">
+            <!-- Seção do Segundo Trimestre -->
+            <section id="trimestre-2" class="mb-12">
+                <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6">2º Trimestre (19/05/2025 - 05/09/2025)</h2>
+                <div id="eventos-trimestre-2" class="space-y-4">
+                    <!-- Eventos do 2º trimestre serão inseridos aqui pelo JavaScript -->
+                </div>
+            </section>
+
+            <!-- Seção do Terceiro Trimestre -->
+            <section id="trimestre-3" class="mb-12">
+                <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6">3º Trimestre (08/09/2025 - 16/12/2025)</h2>
+                <div id="eventos-trimestre-3" class="space-y-4">
+                    <!-- Eventos do 3º trimestre serão inseridos aqui pelo JavaScript -->
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        // ===================================================================================
+        // ATENÇÃO: É AQUI QUE VOCÊ ADICIONA, EDITA OU REMOVE OS EVENTOS DA TURMA!
+        // ===================================================================================
+        const eventos = [
+            // Exemplo de evento que você me deu:
+            {
+                date: '2025-08-26', // Formato: ANO-MÊS-DIA
+                subject: 'Língua Portuguesa',
+                title: 'Entrega da recuperação do caderno',
+                details: 'Apresentar um trabalho sobre um autor da segunda geração do modernismo no Brasil.',
+                points: 5,
+                trimestre: 2 // Número do trimestre (1, 2 ou 3)
+            },
+            // Adicione mais eventos aqui. Copie o bloco acima e cole abaixo, alterando os dados.
+            // Exemplo de um evento futuro no 2º trimestre:
+            {
+                date: '2025-09-02',
+                subject: 'História',
+                title: 'Prova Trimestral',
+                details: 'Matéria: Segunda Guerra Mundial e Guerra Fria.',
+                points: 10,
+                trimestre: 2
+            },
+            // Exemplo de um evento no 3º trimestre:
+            {
+                date: '2025-09-15',
+                subject: 'Matemática',
+                title: 'Entrega da Lista de Exercícios',
+                details: 'Lista sobre Análise Combinatória. Entregar na aula.',
+                points: 3,
+                trimestre: 3
+            },
+            // Exemplo de um evento já concluído (data anterior a hoje):
+             {
+                date: '2025-08-22',
+                subject: 'Geografia',
+                title: 'Apresentação de Seminário',
+                details: 'Seminário sobre blocos econômicos.',
+                points: 8,
+                trimestre: 2
+            },
+
+        ];
+        // ===================================================================================
+        // FIM DA ÁREA DE EDIÇÃO DE EVENTOS
+        // ===================================================================================
+
+
+        // Função para formatar a data para o padrão brasileiro (DD/MM/AAAA)
+        function formatarData(dataString) {
+            const [ano, mes, dia] = dataString.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        // Função principal que carrega os eventos na página
+        window.onload = function() {
+            // Pega a data de hoje para comparar e definir o status (Pendente/Concluído)
+            // Para o seu teste, vamos fixar a data em 24/08/2025.
+            // Para o site real, troque a linha abaixo pela seguinte: const hoje = new Date();
+            const hoje = new Date('2025-08-24T23:59:59'); // Data de referência que você informou
+            
+            const containerTrimestre2 = document.getElementById('eventos-trimestre-2');
+            const containerTrimestre3 = document.getElementById('eventos-trimestre-3');
+
+            // Ordena os eventos por data, do mais antigo para o mais novo
+            eventos.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (eventos.length === 0) {
+                containerTrimestre2.innerHTML = '<p class="text-gray-500">Nenhum evento cadastrado ainda.</p>';
+                containerTrimestre3.innerHTML = '<p class="text-gray-500">Nenhum evento cadastrado ainda.</p>';
+                return;
+            }
+
+            eventos.forEach(evento => {
+                const dataEvento = new Date(evento.date + 'T23:59:59'); // Adiciona hora para garantir a comparação correta
+                const isPendente = dataEvento >= hoje;
+
+                // Define as cores e textos com base no status do evento
+                const statusClass = isPendente ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-600';
+                const statusText = isPendente ? 'Pendente' : 'Concluído';
+                const cardClass = isPendente ? 'bg-white' : 'bg-gray-50 opacity-70';
+                const borderClass = isPendente ? 'border-blue-500' : 'border-gray-300';
+
+                // Cria o HTML do card do evento
+                const cardHTML = `
+                    <div class="${cardClass} border-l-4 ${borderClass} rounded-r-lg p-4 shadow-md flex flex-col md:flex-row md:items-center justify-between transition-all hover:shadow-lg">
+                        <div class="flex-1 mb-4 md:mb-0">
+                            <div class="flex items-center mb-2">
+                                <span class="text-sm font-semibold ${statusClass} px-2 py-1 rounded-full mr-3">${statusText}</span>
+                                <p class="font-bold text-lg text-blue-800">${formatarData(evento.date)} - ${evento.subject}</p>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">${evento.title}</h3>
+                            <p class="text-gray-600 mt-1">${evento.details}</p>
+                        </div>
+                        ${evento.points ? `
+                        <div class="bg-blue-100 text-blue-800 text-center p-3 rounded-lg md:ml-4">
+                            <p class="font-bold text-2xl">${evento.points}</p>
+                            <p class="text-sm font-medium">Ponto${evento.points > 1 ? 's' : ''}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                // Adiciona o card ao trimestre correto
+                if (evento.trimestre === 2) {
+                    containerTrimestre2.innerHTML += cardHTML;
+                } else if (evento.trimestre === 3) {
+                    containerTrimestre3.innerHTML += cardHTML;
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
