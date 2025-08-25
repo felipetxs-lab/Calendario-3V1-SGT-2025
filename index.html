@@ -9,39 +9,74 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos básicos para o body e transição suave */
         body {
             font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Definição das cores do modo claro */
+        body.light {
+            background-color: #f0fdf4; /* Verde muito claro */
+            color: #1f2937; /* Cinza escuro */
+        }
+        /* Definição das cores do modo escuro */
+        body.dark {
+            background-color: #0c0a09; /* Preto acinzentado */
+            color: #e5e7eb; /* Cinza claro */
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="light">
 
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
         
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-blue-700">Calendário da Turma</h1>
-            <p class="text-gray-600 mt-2">Fique por dentro de todas as provas, trabalhos e eventos importantes!</p>
+        <header class="text-center mb-10 relative">
+            <!-- Título com cores que se adaptam ao tema -->
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#059669] dark:text-[#34d399] drop-shadow-lg">
+                Calendário da Turma
+            </h1>
+            <!-- Descrição com cores de alto contraste para ambos os temas -->
+            <p class="text-* font-bold border-b-2 border-[#10b981] dark:border-[#34d399] pb-2 mb-6 text-white-900 dark:text-gray-50">
+                Fique por dentro de todas as provas, trabalhos e eventos importantes!
+            </p>
+            <!-- Botão de alternância do modo claro/escuro -->
+            <button id="toggleDarkMode" class="absolute top-0 right-0 p-2 sm:p-3 rounded-full text-gray-700 dark:text-white-900 transition-transform duration-300 hover:scale-110">
+                <!-- Ícone de sol para o modo claro -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zM4.305 4.305a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM17 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zM14.695 4.305a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM15 13a1 1 0 01-1 1v1a1 1 0 11-2 0v-1a1 1 0 01-2 0v-1a1 1 0 01-1-1 1 1 0 01-1-1v-1a1 1 0 01-1-1 1 1 0 011-1h1a1 1 0 011 1 1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 011 1v1a1 1 0 011 1z" />
+                    <path fill-rule="evenodd" d="M10 20a10 10 0 100-20 10 10 0 000 20zm0-2a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd" />
+                </svg>
+                <!-- Ícone de lua para o modo escuro -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+            </button>
         </header>
 
         <main id="calendario-container">
             <!-- Seção do Segundo Trimestre -->
             <section id="trimestre-2" class="mb-12">
-                <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6">2º Trimestre (19/05/2025 - 05/09/2025)</h2>
-                <div id="eventos-trimestre-2" class="space-y-4">
+                <!-- Título que se adapta ao tema, com cores de alto contraste -->
+                <h2 class="text-2xl font-bold border-b-2 border-[#10b981] dark:border-[#34d399] pb-2 mb-6 text-white-900 dark:text-gray-50">
+                    2º Trimestre (19/05/2025 - 05/09/2025)
+                </h2>
+                <div id="eventos-trimestre-2" class="space-y-6">
                     <!-- Eventos do 2º trimestre serão inseridos aqui pelo JavaScript -->
                 </div>
             </section>
 
             <!-- Seção do Terceiro Trimestre -->
             <section id="trimestre-3" class="mb-12">
-                <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6">3º Trimestre (08/09/2025 - 16/12/2025)</h2>
-                <div id="eventos-trimestre-3" class="space-y-4">
+                <!-- Título que se adapta ao tema, com cores de alto contraste -->
+                <h2 class="text-2xl font-bold border-b-2 border-[#10b981] dark:border-[#34d399] pb-2 mb-6 text-white-900 dark:text-gray-50">
+                    3º Trimestre (08/09/2025 - 16/12/2025)
+                </h2>
+                <div id="eventos-trimestre-3" class="space-y-6">
                     <!-- Eventos do 3º trimestre serão inseridos aqui pelo JavaScript -->
                 </div>
             </section>
 
         </main>
-
     </div>
 
     <script>
@@ -49,30 +84,27 @@
         // ATENÇÃO: É AQUI QUE VOCÊ ADICIONA, EDITA OU REMOVE OS EVENTOS DA TURMA!
         // ===================================================================================
         const eventos = [
-            // Exemplo de evento que você me deu:
             {
                 date: '2025-08-26', // Formato: ANO-MÊS-DIA
                 subject: 'Língua Portuguesa',
-                title: 'Entrega da recuperação do caderno',
-                details: 'Apresentar um trabalho sobre um autor da segunda geração do modernismo no Brasil.',
+                title: 'Entrega da Recuperação do Caderno',
+                details: 'Apresentar um Trabalho Sobre um Autor da Segunda Geração do Modernismo no Brasil.',
                 points: 5,
                 trimestre: 2 // Número do trimestre (1, 2 ou 3)
             },
-            // Adicione mais eventos aqui. Copie o bloco acima e cole abaixo, alterando os dados.
-            // Exemplo de um evento futuro no 2º trimestre:
             {
                 date: '2025-08-29',
                 subject: 'Língua Portuguesa',
                 title: 'Letrus',
-                details: 'Redação: Os desafios na proteção dos direitos das pessoas refugiadas no Brasil.',
-                trimestre: 2
+                details: 'Redação: Os Desafios na Proteção dos Direitos das Pessoas Refugiadas no Brasil.',
+                trimestre: 2,
+                link: 'https://aluno.letrus.com.br/' // Adicionando um link de exemplo
             },
-            // Exemplo de um evento já concluído (data anterior a hoje):
-             {
+            {
                 date: '2025-08-22',
                 subject: 'Biologia',
                 title: 'Listas',
-                details: 'Apresentar as listas de atividades.',
+                details: 'Apresentar as Listas de Atividades.',
                 points: 5,
                 trimestre: 2
             },
@@ -81,14 +113,52 @@
                 subject: 'Formatura',
                 title: 'CLICK DAY',
                 details: '08:00 às 11:00 (Período de Fotos) / 11:00 às 12:00 (Comida) / 12:00 às 17:00 (After - Pagode)',
+                trimestre: 3,
+             // Adicionando outro link de exemplo
+            },
+            {
+                date: '2025-11-25',
+                subject: 'Área Técnica', // Exemplo de evento sem matéria
+                title: 'MECT',
+                details: '1º dia de MECT',
                 trimestre: 3
             },
-
+            {
+                date: '2025-11-26',
+                subject: 'Área Técnica', // Exemplo de evento sem matéria
+                title: 'MECT',
+                details: '2º dia de MECT',
+                trimestre: 3
+            }
         ];
         // ===================================================================================
         // FIM DA ÁREA DE EDIÇÃO DE EVENTOS
         // ===================================================================================
 
+
+        // Lógica para o modo claro/escuro
+        const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+        const body = document.body;
+
+        // Função para alternar o modo e salvar a preferência
+        function toggleDarkMode() {
+            const isDark = body.classList.toggle('dark');
+            body.classList.toggle('light', !isDark);
+            localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+        }
+
+        // Verifica a preferência do usuário ao carregar a página
+        const storedTheme = localStorage.getItem('darkMode');
+        if (storedTheme === 'dark') {
+            body.classList.add('dark');
+            body.classList.remove('light');
+        } else {
+            body.classList.add('light');
+            body.classList.remove('dark');
+        }
+        
+        // Adiciona o ouvinte de evento ao botão
+        toggleDarkModeButton.addEventListener('click', toggleDarkMode);
 
         // Função para formatar a data para o padrão brasileiro (DD/MM/AAAA)
         function formatarData(dataString) {
@@ -98,11 +168,7 @@
 
         // Função principal que carrega os eventos na página
         window.onload = function() {
-            // Pega a data de hoje para comparar e definir o status (Pendente/Concluído)
-            // Para o seu teste, vamos fixar a data em 24/08/2025.
-            // Para o site real, troque a linha abaixo pela seguinte: const hoje = new Date();
-            const hoje = new Date('2025-08-24T23:59:59'); // Data de referência que você informou
-            
+            const hoje = new Date();
             const containerTrimestre2 = document.getElementById('eventos-trimestre-2');
             const containerTrimestre3 = document.getElementById('eventos-trimestre-3');
 
@@ -110,8 +176,8 @@
             eventos.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             if (eventos.length === 0) {
-                containerTrimestre2.innerHTML = '<p class="text-gray-500">Nenhum evento cadastrado ainda.</p>';
-                containerTrimestre3.innerHTML = '<p class="text-gray-500">Nenhum evento cadastrado ainda.</p>';
+                containerTrimestre2.innerHTML = '<p class="text-gray-500 dark:text-gray-400">Nenhum evento cadastrado ainda.</p>';
+                containerTrimestre3.innerHTML = '<p class="text-gray-500 dark:text-gray-400">Nenhum evento cadastrado ainda.</p>';
                 return;
             }
 
@@ -120,24 +186,27 @@
                 const isPendente = dataEvento >= hoje;
 
                 // Define as cores e textos com base no status do evento
-                const statusClass = isPendente ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-600';
+                const statusClass = isPendente ? 'bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200' : 'bg-gray-300 text-gray-700 dark:bg-zinc-600 dark:text-zinc-200';
                 const statusText = isPendente ? 'Pendente' : 'Concluído';
-                const cardClass = isPendente ? 'bg-white' : 'bg-gray-50 opacity-70';
-                const borderClass = isPendente ? 'border-blue-500' : 'border-gray-300';
+                const cardClass = isPendente ? 'bg-white dark:bg-zinc-800' : 'bg-gray-200 dark:bg-zinc-700';
+                const borderClass = isPendente ? 'border-green-500' : 'border-gray-500 dark:border-zinc-500';
 
                 // Cria o HTML do card do evento
                 const cardHTML = `
-                    <div class="${cardClass} border-l-4 ${borderClass} rounded-r-lg p-4 shadow-md flex flex-col md:flex-row md:items-center justify-between transition-all hover:shadow-lg">
+                    <div class="${cardClass} border-l-4 ${borderClass} rounded-r-xl p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between transition-all hover:shadow-lg transform hover:-translate-y-1">
                         <div class="flex-1 mb-4 md:mb-0">
                             <div class="flex items-center mb-2">
-                                <span class="text-sm font-semibold ${statusClass} px-2 py-1 rounded-full mr-3">${statusText}</span>
-                                <p class="font-bold text-lg text-blue-800">${formatarData(evento.date)} - ${evento.subject}</p>
+                                <span class="text-sm font-semibold ${statusClass} px-3 py-1 rounded-full mr-3">${statusText}</span>
+                                <!-- Exibe a matéria apenas se ela existir -->
+                                <p class="font-bold text-lg text-gray-900 dark:text-gray-50">${formatarData(evento.date)}${evento.subject ? ` - ${evento.subject}` : ''}</p>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-900">${evento.title}</h3>
-                            <p class="text-gray-600 mt-1">${evento.details}</p>
+                            <h3 class="text-xl font-bold text-green-700 dark:text-green-400">${evento.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-200 mt-1">${evento.details}</p>
+                            <!-- Exibe o link apenas se ele existir -->
+                            ${evento.link ? `<a href="${evento.link}" target="_blank" class="text-sm font-medium text-green-600 dark:text-green-400 hover:underline mt-2 inline-block">Mais informações</a>` : ''}
                         </div>
                         ${evento.points ? `
-                        <div class="bg-blue-100 text-blue-800 text-center p-3 rounded-lg md:ml-4">
+                        <div class="bg-green-50 text-green-800 text-center p-3 rounded-lg md:ml-4 dark:bg-green-900 dark:text-green-300">
                             <p class="font-bold text-2xl">${evento.points}</p>
                             <p class="text-sm font-medium">Ponto${evento.points > 1 ? 's' : ''}</p>
                         </div>
